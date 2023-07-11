@@ -14,7 +14,7 @@ users = {
     "sarah": "password2"
 }
 
-allowed_ips = ["127.0.0.1", "193.183.240.84"]  # Add more IPs as needed
+allowed_ips = ["127.0.0.1", "193.183.240.84", "10.244.1.250"]  # Add more IPs as needed
 
 @auth.verify_password
 def verify_password(username, password):
