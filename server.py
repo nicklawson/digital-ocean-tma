@@ -14,6 +14,8 @@ users = {
     "sarah": "password2"
 }
 
+allowed_ips = ["192.168.1.1", "193.183.240.84"]  # Add more IPs as needed
+
 @auth.verify_password
 def verify_password(username, password):
     if username in users and users[username] == password:
@@ -119,6 +121,11 @@ def home():
 @app.route('/api', methods=['POST'])
 @auth.login_required
 def api():
+
+    user_ip = request.remote_addr  # Get user IP
+    if user_ip not in allowed_ips:
+        return jsonify({"message": "Unauthorized IP"}), 401
+    
     rates_json = request.json
 
     df = calculate_tma(rates_json)
