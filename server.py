@@ -14,7 +14,7 @@ users = {
     "sarah": "password2"
 }
 
-allowed_ips = ["192.168.1.1", "193.183.240.84"]  # Add more IPs as needed
+allowed_ips = ["127.0.0.1", "193.183.240.84"]  # Add more IPs as needed
 
 @auth.verify_password
 def verify_password(username, password):
@@ -124,6 +124,7 @@ def api():
 
     user_ip = request.remote_addr  # Get user IP
     if user_ip not in allowed_ips:
+        print("Unauthorized IP: %s" % user_ip)
         return jsonify({"message": "Unauthorized IP"}), 401
     
     rates_json = request.json
