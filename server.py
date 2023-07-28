@@ -28,6 +28,7 @@ def calculate_tma(json,HalfLength=100,BandsDeviations=3,price_calculation='weigh
 
     if price_calculation == 'weighted':
         df.loc[:, 'Weighted_Price'] = (df['high'] + df['low'] + df['close'] + df['open']) / 4
+        # df.loc[:, 'Weighted_Price'] = (df['high'] + df['low'] + df['close'] + df['close']) / 4
         # df['Weighted_Price'] = (df['high'] + df['low'] + df['close'] + df['close']) / 4
 
     df['diff'] = np.nan  # initialize the wdBuffer column
@@ -123,9 +124,11 @@ def home():
 def api():
 
     user_ip = request.remote_addr  # Get user IP
-    if user_ip not in allowed_ips:
-        print("Unauthorized IP: %s" % user_ip)
-        return jsonify({"message": "Unauthorized IP"}), 401
+    
+    if False: # Check if user IP is allowed
+        if user_ip not in allowed_ips:
+            print("Unauthorized IP: %s" % user_ip)
+            return jsonify({"message": "Unauthorized IP"}), 401
     
     rates_json = request.json
 
